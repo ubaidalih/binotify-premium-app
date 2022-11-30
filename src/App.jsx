@@ -1,20 +1,34 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
+import React, { useState } from 'react';
 import './App.css';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Login } from './pages/Login';
+import { Register } from './pages/Register';
 
 import theme from './themes/';
 import './themes/styles.css';
+import image from './assets/turnpike-blur.jpg';
 
 function App() {
-    const [count, setCount] = useState(0);
+    const [currentForm, setCurrentForm] = useState('register');
+
+    const toggleForm = (formName) => {
+        setCurrentForm(formName);
+    };
 
     return (
         <ChakraProvider theme={theme}>
-            <div bgGradient='linear(to-b, black.200, grey.500'>
-                <Login />
-                {/* <Register /> */}
+            <div
+                className='App'
+                style={{
+                    backgroundImage: `url(${image})`,
+                    backgroundRepeat: 'no-repeat',
+                }}
+            >
+                {currentForm === 'login' ? (
+                    <Login onFormSwitch={toggleForm} />
+                ) : (
+                    <Register onFormSwitch={toggleForm} />
+                )}
             </div>
         </ChakraProvider>
     );

@@ -40,6 +40,9 @@ export const Register = (props) => {
                                 <Input placeholder='Username' />
                             </FormControl>
                             <FormControl>
+                                <Input placeholder='Name' />
+                            </FormControl>
+                            <FormControl>
                                 <Input placeholder='Email' />
                             </FormControl>
                             <FormControl>

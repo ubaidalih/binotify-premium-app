@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { useState } from 'react';
 import {
     Container,
-    Flex,
     FormControl,
     Input,
     VStack,
@@ -101,7 +100,7 @@ export const Register = (props) => {
                 maxWidth={{ base: '100%', md: '50%', sm: '100%' }}
                 marginLeft={{ base: '0%', md: '50%', sm: '0%' }}
             >
-                <Flex h='100vh'>
+                <VStack>
                     <VStack
                         w='full'
                         h='full'
@@ -109,6 +108,7 @@ export const Register = (props) => {
                         paddingLeft={[5, 16, 20, 32, 40, 56]}
                         spacing={10}
                         paddingTop={28}
+                        paddingBottom={28}
                         bg='#121212'
                     >
                         <Image src='src\assets\Binotifylogo.png' />
@@ -147,7 +147,7 @@ export const Register = (props) => {
                             </Text>
                         </SimpleGrid>
                     </VStack>
-                </Flex>
+                </VStack>
             </Container>
         </Container>
     );

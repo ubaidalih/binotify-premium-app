@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { Container, Flex, VStack } from '@chakra-ui/react';
-import Forms from './sections/loginForm.jsx';
+import Forms from './sections/registerForm.jsx';
+var username = '',
+    password = '';
 
 export const Login = () => {
     return (

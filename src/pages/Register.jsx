@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
     Container,
     Flex,
@@ -12,7 +13,7 @@ import {
     Image,
 } from '@chakra-ui/react';
 
-export const Register = (props) => {
+export const Register = () => {
     return (
         <Container maxWidth='100%'>
             <Container
@@ -37,6 +38,9 @@ export const Register = (props) => {
                         </VStack>
                         <SimpleGrid w='full' rowGap={5}>
                             <FormControl>
+                                <Input placeholder='Full Name' />
+                            </FormControl>
+                            <FormControl>
                                 <Input placeholder='Username' />
                             </FormControl>
                             <FormControl>
@@ -56,11 +60,8 @@ export const Register = (props) => {
                                 Already on Binotify?
                             </Text>
                             <Text color='brand.200' textAlign='center'>
-                                <button
-                                    color='white'
-                                    onClick={() => props.onFormSwitch('login')}
-                                >
-                                    Log in
+                                <button color='white'>
+                                    <Link to={`/`}>Log in</Link>
                                 </button>
                             </Text>
                         </SimpleGrid>

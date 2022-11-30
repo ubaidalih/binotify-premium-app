@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useCallback } from 'react';
+import { useState } from 'react';
 import {
     Container,
     FormControl,
@@ -12,6 +12,9 @@ import {
     Image,
 } from '@chakra-ui/react';
 import { register } from '../service/user';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
+import Cookies from 'universal-cookie';
 
 export const Register = (props) => {
     const [email, setEmail] = useState('');
@@ -19,6 +22,11 @@ export const Register = (props) => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
+    const navigate = useNavigate();
+    const linkToIndex = useCallback(
+        () => navigate('/Index', { replace: true }),
+        [navigate]
+    );
 
     const handleInput = async (event) => {
         switch (event.target.name) {
@@ -77,12 +85,18 @@ export const Register = (props) => {
         const response = await register(data);
         if (response.data.message === 'Register success') {
             alert('Register success');
-        } else if (
-            response.data.message === 'Email or username already exist'
-        ) {
-            alert('Email or username already exist');
+            const cookies = new Cookies();
+            cookies.set('token', response.data.token, { path: '/' });
+            const decoded = jwt_decode(response.data.token);
+            if (decoded.isAdmin) {
+                // link to page subscription
+                linkToIndex();
+            } else {
+                // link to page list lagu
+                linkToIndex();
+            }
         } else {
-            alert('Register failed');
+            alert(response.data.message);
         }
     };
     return (

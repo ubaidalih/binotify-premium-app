@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { useState } from 'react';
 import {
     Container,
     FormControl,
@@ -13,16 +14,62 @@ import {
     InputRightElement,
 } from '@chakra-ui/react';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import {login} from '../service/user';
+import jwt_decode from 'jwt-decode';
+import Cookies from 'universal-cookie';
 
 export const Login = () => {
-    const [show, setShow] = React.useState(false);
+    const [show, setShow] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const handleClick = () => setShow(!show);
     const navigate = useNavigate();
     const linkToIndex = useCallback(
         () => navigate('/Index', { replace: true }),
         [navigate]
     );
+    const handleInput = async (event) => {
+        switch(event.target.name) {
+            case 'email':
+                setEmail(event.target.value);
+                break;
+            case 'password':
+                setPassword(event.target.value);
+                break;
+            default:
+                break;
+        }
+    }
+    const handleSubmit = async (event) => {
+        if(email === '' || password === '') {
+            alert('Data is missing');
+            return;
+        }
+        event.preventDefault();
+        const data = {
+            email: email,
+            password: password,
+        }
+        const response = await login(data);
+        if(response.data.message === "Login success") {
+            alert('Login success')
+            const cookies = new Cookies();
+            cookies.set('token', response.data.token, { path: '/' });
+            console.log(cookies.get('token'));
+            const decoded = jwt_decode(response.data.token)
+            if(decoded.isAdmin){
+                // link to page subscription
+                linkToIndex()
+            }
+            else{
+                // link to page list lagu
+                linkToIndex()
+            }
+        } else {
+            alert(response.data.message)
+        }
+    }
 
     return (
         <Container maxWidth='100%' height='100vh' overflow='scroll'>
@@ -49,13 +96,14 @@ export const Login = () => {
                         </VStack>
                         <SimpleGrid w='full' rowGap={5}>
                             <FormControl>
-                                <Input placeholder='Email' />
+                                <Input placeholder='Email' name='email' value={email} onChange={handleInput} />
                             </FormControl>
                             <FormControl>
                                 <InputGroup>
                                     <Input
                                         type={show ? 'text' : 'password'}
                                         placeholder='Password'
+                                        name='password' value={password} onChange={handleInput}
                                     />
                                     <InputRightElement width='4.5rem'>
                                         <Button
@@ -72,7 +120,7 @@ export const Login = () => {
                                 </InputGroup>
                             </FormControl>
 
-                            <Button size='lg' w='full' onClick={linkToIndex}>
+                            <Button size='lg' w='full' onClick={handleSubmit}>
                                 {/* <Link to={`Index/`}></Link> */}
                                 LOG IN
                             </Button>

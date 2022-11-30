@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useCallback } from 'react';
 import {
     Container,
     FormControl,
@@ -11,12 +11,18 @@ import {
     Image,
     InputGroup,
     InputRightElement,
-    background,
 } from '@chakra-ui/react';
 
-export const Login = (props) => {
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+
+export const Login = () => {
     const [show, setShow] = React.useState(false);
     const handleClick = () => setShow(!show);
+    const navigate = useNavigate();
+    const linkToIndex = useCallback(
+        () => navigate('/Index', { replace: true }),
+        [navigate]
+    );
 
     return (
         <Container maxWidth='100%'>
@@ -65,11 +71,8 @@ export const Login = (props) => {
                                 </InputGroup>
                             </FormControl>
 
-                            <Button
-                                // onClick={props.onFormSwitch('login')}
-                                size='lg'
-                                w='full'
-                            >
+                            <Button size='lg' w='full' onClick={linkToIndex}>
+                                {/* <Link to={`Index/`}></Link> */}
                                 LOG IN
                             </Button>
                             <Text color='brand.500'> OR </Text>
@@ -78,13 +81,8 @@ export const Login = (props) => {
                                 Don't have an account?
                             </Text>
                             <Text color='brand.200' textAlign='center'>
-                                <button
-                                    color='white'
-                                    onClick={() =>
-                                        props.onFormSwitch('register')
-                                    }
-                                >
-                                    Sign up!
+                                <button color='white'>
+                                    <Link to={`Register/`}>Sign up!</Link>
                                 </button>
                             </Text>
                         </SimpleGrid>

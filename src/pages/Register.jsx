@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
     Container,
     Flex,
@@ -124,11 +124,8 @@ export const Register = (props) => {
                                 Already on Binotify?
                             </Text>
                             <Text color='brand.200' textAlign='center'>
-                                <button
-                                    color='white'
-                                    onClick={() => props.onFormSwitch('login')}
-                                >
-                                    Log in
+                                <button color='white'>
+                                    <Link to={`/`}>Log in</Link>
                                 </button>
                             </Text>
                         </SimpleGrid>

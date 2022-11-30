@@ -13,7 +13,7 @@ import {
     InputRightElement,
 } from '@chakra-ui/react';
 
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const Login = () => {
     const [show, setShow] = React.useState(false);
@@ -25,17 +25,18 @@ export const Login = () => {
     );
 
     return (
-        <Container maxWidth='100%'>
+        <Container maxWidth='100%' height='50%'>
             <Container
                 maxWidth={{ base: '100%', md: '50%', sm: '100%' }}
                 marginLeft={{ base: '0%', md: '50%', sm: '0%' }}
             >
-                <VStack h='100vh'>
+                <VStack>
                     <VStack
                         w='full'
-                        h='full'
+                        height='full'
                         paddingRight={[5, 16, 20, 32, 40, 56]}
                         paddingLeft={[5, 16, 20, 32, 40, 56]}
+                        paddingBottom={28}
                         spacing={10}
                         paddingTop={28}
                         bg='#121212'
@@ -46,7 +47,7 @@ export const Login = () => {
                                 Music for Everyone
                             </Heading>
                         </VStack>
-                        <SimpleGrid w='full' rowGap={5}>
+                        <SimpleGrid w='full' h='full' rowGap={5}>
                             <FormControl>
                                 <Input placeholder='Email' />
                             </FormControl>

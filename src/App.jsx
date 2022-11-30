@@ -37,7 +37,8 @@ function App() {
                 className='App'
                 style={{
                     backgroundImage: `url(${image})`,
-                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                 }}
             >
                 <BrowserRouter>

@@ -26,6 +26,7 @@ import { read, remove } from '../service/song';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import Cookies from 'universal-cookie';
+import '../themes/pagination.css';
 
 export const SongList = () => {
     const [currentPage, setCurrentPage] = useState(0);
@@ -84,18 +85,23 @@ export const SongList = () => {
                         <Th color='brand.500'>Action</Th>
                     </Tr>
                 </Thead>
-                <Tbody>
+                <Tbody color='brand.500'>
                     {song
                         .slice(offset, offset + PER_PAGE)
                         .map((song, index) => {
                             return (
-                                <Tr key={song.song_id}>
+                                <Tr key={song.song_id} bg='black'>
                                     <Td>{index + 1}</Td>
                                     <Td>{song.judul}</Td>
                                     <Td>{song.audio_path}</Td>
                                     <Td>
                                         <Button
-                                            colorScheme='blue'
+                                            borderRadius='none'
+                                            bg='brand.100'
+                                            _hover={{
+                                                bg: '#74a6e8',
+                                                color: 'white',
+                                            }}
                                             onClick={() =>
                                                 handleEdit(song.song_id)
                                             }
@@ -103,7 +109,11 @@ export const SongList = () => {
                                             Edit
                                         </Button>
                                         <Button
-                                            colorScheme='red'
+                                            borderRadius='none'
+                                            bg='brand.100'
+                                            _hover={{
+                                                bg: 'red',
+                                            }}
                                             onClick={() =>
                                                 handleDelete(song.song_id)
                                             }

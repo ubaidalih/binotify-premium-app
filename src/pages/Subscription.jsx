@@ -21,18 +21,11 @@ import {
     Th,
     Td,
 } from '@chakra-ui/react';
-import {
-    ArrowRightIcon,
-    ArrowLeftIcon,
-    ChevronRightIcon,
-    ChevronLeftIcon,
-} from '@chakra-ui/icons';
 
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import Cookies from 'universal-cookie';
 import { approval, reject, getSubs } from '../service/subscription';
-import { useTable, usePagination } from 'react-table';
 
 export const Subscription = () => {
     const [currentPage, setCurrentPage] = useState(0);
@@ -40,7 +33,6 @@ export const Subscription = () => {
     useEffect(() => {
         getSubscriber();
     }, []);
-    const items = subs;
 
     const getSubscriber = async () => {
         const cookies = new Cookies();
@@ -138,7 +130,7 @@ export const Subscription = () => {
             </Table>
         </TableContainer>
     );
-    const pageCount = Math.ceil(items.length / PER_PAGE);
+    const pageCount = Math.ceil(subs.length / PER_PAGE);
 
     function handlePageClick({ selected: selectedPage }) {
         setCurrentPage(selectedPage);
@@ -165,54 +157,6 @@ export const Subscription = () => {
                 breakLinkClassName={'page-link'}
                 activeClassName={'active'}
             />
-            {/* <CustomTable columns={columns} data={subs} />
-            {console.log(subs.status)} */}
-            {/* <TableContainer>
-                <Table variant='simple'>
-                    <Thead>
-                        <Tr>
-                            <Th>Artist</Th>
-                            <Th>User</Th>
-                            <Th>Status</Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        {' '}
-                        {subs.map((subs, index) => (
-                            <Tr key={subs.creator_id}>
-                                <Td>{index + 1}</Td>
-                                <Td>{subs.subscriber_id}</Td>
-                                <Td>{subs.status}</Td>
-                                <Td>
-                                    {' '}
-                                    <Button
-                                        colorScheme='blue'
-                                        onClick={() =>
-                                            handleAprroval(
-                                                subs.creator_id,
-                                                subs.subscriber_id
-                                            )
-                                        }
-                                    >
-                                        Approve
-                                    </Button>
-                                    <Button
-                                        colorScheme='red'
-                                        onClick={() =>
-                                            handleReject(
-                                                subs.creator_id,
-                                                subs.subscriber_id
-                                            )
-                                        }
-                                    >
-                                        Reject
-                                    </Button>
-                                </Td>
-                            </Tr>
-                        ))}
-                    </Tbody>
-                </Table>
-            </TableContainer> */}
         </div>
     );
 };

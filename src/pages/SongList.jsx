@@ -42,9 +42,9 @@ export const SongList = () => {
         const token = cookies.get('token');
         const decoded = jwt_decode(token);
         const data = {
-            creator_id : decoded.user_id,
-            subscriber_id : -1
-        }
+            creator_id: decoded.user_id,
+            subscriber_id: -1,
+        };
         const response = await read(data);
         setSong(response.data);
     };
@@ -57,16 +57,15 @@ export const SongList = () => {
             headers: {
                 authorization: token,
             },
-        }
+        };
         const data = {
-            song_id : id,
-        }
+            song_id: id,
+        };
         const response = await remove(data, config);
         window.location.reload(false);
     };
 
-    const handleEdit = async (id) => {
-    };
+    const handleEdit = async (id) => {};
 
     return (
         // tambah header, judul, dan tombol tambah lagu
@@ -83,7 +82,7 @@ export const SongList = () => {
                 <Tbody>
                     {songs.map((song, index) => (
                         <Tr key={song.song_id}>
-                            <Td>{index+1}</Td>
+                            <Td>{index + 1}</Td>
                             <Td>{song.judul}</Td>
                             <Td>{song.audio_path}</Td>
                             <Td>
@@ -105,7 +104,7 @@ export const SongList = () => {
                 </Tbody>
             </Table>
         </TableContainer>
-      );
+    );
 };
 
 export default SongList;

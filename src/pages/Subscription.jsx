@@ -1,12 +1,13 @@
-import React, { useCallback } from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
+import ReactPaginate from 'react-paginate';
 import {
     Container,
     FormControl,
     Input,
     VStack,
     Heading,
+    Flex,
+    Tooltip,
     Text,
     SimpleGrid,
     Button,
@@ -19,67 +20,22 @@ import {
     Tr,
     Th,
     Td,
-    TableCaption,
-    cookieStorageManager,
 } from '@chakra-ui/react';
-import { read, remove } from '../service/song';
+import {
+    ArrowRightIcon,
+    ArrowLeftIcon,
+    ChevronRightIcon,
+    ChevronLeftIcon,
+} from '@chakra-ui/icons';
+
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import Cookies from 'universal-cookie';
 import { approval, reject, getSubs } from '../service/subscription';
-import ReactPaginate from 'react-paginate';
+import { useTable, usePagination } from 'react-table';
 
 export const Subscription = () => {
-    function Items({ currentItems }) {
-        return (
-            <>
-                {currentItems &&
-                    currentItems.map((item) => (
-                        <div>
-                            <h3>Item #{item}</h3>
-                        </div>
-                    ))}
-            </>
-        );
-    }
-
-    function PaginatedItems({ itemsPerPage }) {
-        // Here we use item offsets; we could also use page offsets
-        // following the API or data you're working with.
-        const [itemOffset, setItemOffset] = useState(0);
-
-        // Simulate fetching items from another resources.
-        // (This could be items from props; or items loaded in a local state
-        // from an API endpoint with useEffect and useState)
-        const endOffset = itemOffset + itemsPerPage;
-        console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-        const currentItems = items.slice(itemOffset, endOffset);
-        const pageCount = Math.ceil(items.length / itemsPerPage);
-
-        // Invoke when user click to request another page.
-        const handlePageClick = (event) => {
-            const newOffset = (event.selected * itemsPerPage) % items.length;
-            console.log(
-                `User requested page number ${event.selected}, which is offset ${newOffset}`
-            );
-            setItemOffset(newOffset);
-        };
-        return (
-            <>
-                <Items currentItems={currentItems} />
-                <ReactPaginate
-                    breakLabel='...'
-                    nextLabel='next >'
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={5}
-                    pageCount={pageCount}
-                    previousLabel='< previous'
-                    renderOnZeroPageCount={null}
-                />
-            </>
-        );
-    }
-
+    const [currentPage, setCurrentPage] = useState(0);
     const [subs, setSubs] = useState([]);
     useEffect(() => {
         getSubscriber();
@@ -129,11 +85,89 @@ export const Subscription = () => {
 
         const response = await approval(data, config);
     };
+    const PER_PAGE = 5;
+    const offset = currentPage * PER_PAGE;
+    const currentPageData = (
+        <TableContainer>
+            <Table variant='simple'>
+                <Thead>
+                    <Tr>
+                        <Th>Artist</Th>
+                        <Th>User</Th>
+                        <Th>Status</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    {subs
+                        .slice(offset, offset + PER_PAGE)
+                        .map((subs, index) => {
+                            return (
+                                <Tr key={subs.creator_id}>
+                                    <Td>{index + 1}</Td>
+                                    <Td>{subs.subscriber_id}</Td>
+                                    <Td>{subs.status}</Td>
+                                    <Td>
+                                        {' '}
+                                        <Button
+                                            colorScheme='blue'
+                                            onClick={() =>
+                                                handleAprroval(
+                                                    subs.creator_id,
+                                                    subs.subscriber_id
+                                                )
+                                            }
+                                        >
+                                            Approve
+                                        </Button>
+                                        <Button
+                                            colorScheme='red'
+                                            onClick={() =>
+                                                handleReject(
+                                                    subs.creator_id,
+                                                    subs.subscriber_id
+                                                )
+                                            }
+                                        >
+                                            Reject
+                                        </Button>
+                                    </Td>
+                                </Tr>
+                            );
+                        })}
+                </Tbody>
+            </Table>
+        </TableContainer>
+    );
+    const pageCount = Math.ceil(items.length / PER_PAGE);
+
+    function handlePageClick({ selected: selectedPage }) {
+        setCurrentPage(selectedPage);
+    }
 
     return (
         // tambah header, judul, dan tombol tambah lagu
         <div>
-            <TableContainer>
+            {currentPageData}
+            <ReactPaginate
+                previousLabel={'Previous'}
+                nextLabel={'Next'}
+                breakLabel={'...'}
+                pageCount={pageCount}
+                onPageChange={handlePageClick}
+                containerClassName={'pagination justify-content-center'}
+                pageClassName={'page-item'}
+                pageLinkClassName={'page-link'}
+                previousClassName={'page-item'}
+                previousLinkClassName={'page-link'}
+                nextClassName={'page-item'}
+                nextLinkClassName={'page-link'}
+                breakClassName={'page-item'}
+                breakLinkClassName={'page-link'}
+                activeClassName={'active'}
+            />
+            {/* <CustomTable columns={columns} data={subs} />
+            {console.log(subs.status)} */}
+            {/* <TableContainer>
                 <Table variant='simple'>
                     <Thead>
                         <Tr>
@@ -143,12 +177,14 @@ export const Subscription = () => {
                         </Tr>
                     </Thead>
                     <Tbody>
+                        {' '}
                         {subs.map((subs, index) => (
                             <Tr key={subs.creator_id}>
                                 <Td>{index + 1}</Td>
                                 <Td>{subs.subscriber_id}</Td>
                                 <Td>{subs.status}</Td>
                                 <Td>
+                                    {' '}
                                     <Button
                                         colorScheme='blue'
                                         onClick={() =>
@@ -176,8 +212,7 @@ export const Subscription = () => {
                         ))}
                     </Tbody>
                 </Table>
-            </TableContainer>
-            <PaginatedItems itemsPerPage={5} />
+            </TableContainer> */}
         </div>
     );
 };

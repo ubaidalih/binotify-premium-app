@@ -22,6 +22,8 @@ export const Register = (props) => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
+    const [show, setShow] = useState(false);
+
     const navigate = useNavigate();
     const linkToIndex = useCallback(
         () => navigate('/Index', { replace: true }),

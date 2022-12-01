@@ -1,7 +1,7 @@
 import axios from "../axios";
 
 export const getSubs = async (config) => {
-    const result = await axios.get(`subscription`, config);
+    const result = await axios.get(`subscription/`, config);
     return result;
 }
 

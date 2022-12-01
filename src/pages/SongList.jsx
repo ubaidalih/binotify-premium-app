@@ -27,6 +27,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import Cookies from 'universal-cookie';
 import '../themes/pagination.css';
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 
 export const SongList = () => {
     const [currentPage, setCurrentPage] = useState(0);
@@ -79,7 +80,9 @@ export const SongList = () => {
             <Table variant='simple'>
                 <Thead bg='brand.100'>
                     <Tr>
-                        <Th color='brand.500'>No.</Th>
+                        <Th color='brand.500' width='2.5px' fontSize='1rem'>
+                            #
+                        </Th>
                         <Th color='brand.500'>Title</Th>
                         <Th color='brand.500'>Audio Path</Th>
                         <Th color='brand.500'>Action</Th>
@@ -96,29 +99,39 @@ export const SongList = () => {
                                     <Td>{song.audio_path}</Td>
                                     <Td>
                                         <Button
+                                            variant='unstyled'
                                             borderRadius='none'
-                                            bg='brand.100'
-                                            _hover={{
-                                                bg: '#74a6e8',
-                                                color: 'white',
-                                            }}
+                                            bg='transparent'
+                                            color='brand.500'
                                             onClick={() =>
                                                 handleEdit(song.song_id)
                                             }
                                         >
-                                            Edit
+                                            <EditIcon
+                                                boxSize='1.5em'
+                                                color='brand.500'
+                                                _hover={{
+                                                    color: 'white',
+                                                    transition: '0.3s',
+                                                }}
+                                            />
                                         </Button>
                                         <Button
+                                            variant='unstyled'
                                             borderRadius='none'
-                                            bg='brand.100'
-                                            _hover={{
-                                                bg: 'red',
-                                            }}
+                                            bg='transparent'
                                             onClick={() =>
                                                 handleDelete(song.song_id)
                                             }
                                         >
-                                            Delete
+                                            <DeleteIcon
+                                                boxSize='1.5em'
+                                                color='brand.500'
+                                                _hover={{
+                                                    color: '#d11a2a',
+                                                    transition: '0.3s',
+                                                }}
+                                            />
                                         </Button>
                                     </Td>
                                 </Tr>

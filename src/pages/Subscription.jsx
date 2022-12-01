@@ -27,6 +27,7 @@ import jwt_decode from 'jwt-decode';
 import Cookies from 'universal-cookie';
 import { approval, reject, getSubs } from '../service/subscription';
 import '../themes/pagination.css';
+import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
 
 export const Subscription = () => {
     const [currentPage, setCurrentPage] = useState(0);
@@ -87,6 +88,9 @@ export const Subscription = () => {
             <Table variant='simple'>
                 <Thead bg='brand.100' maxWidth='100%'>
                     <Tr>
+                        <Th color='brand.500' width='2.5px' fontSize='1rem'>
+                            #
+                        </Th>
                         <Th color='brand.500'>Artist</Th>
                         <Th color='brand.500'>User</Th>
                         <Th color='brand.500'>Status</Th>
@@ -100,14 +104,16 @@ export const Subscription = () => {
                         .map((subs, index) => {
                             return (
                                 <Tr key={subs.creator_id} bg='black'>
+                                    <Td>{subs.index + 1}</Td>
                                     <Td>{subs.creator_id}</Td>
                                     <Td>{subs.subscriber_id}</Td>
                                     <Td>{subs.status}</Td>
                                     <Td>
                                         {' '}
                                         <Button
+                                            variant='unstyled'
                                             colorScheme='blue'
-                                            borderRadius='none'
+                                            bg='transparent'
                                             onClick={() =>
                                                 handleAprroval(
                                                     subs.creator_id,
@@ -115,15 +121,19 @@ export const Subscription = () => {
                                                 )
                                             }
                                         >
-                                            Approve
+                                            <CheckIcon
+                                                boxSize='1.5em'
+                                                color='brand.500'
+                                                _hover={{
+                                                    color: 'brand.300',
+                                                    transition: '0.3s',
+                                                }}
+                                            />
                                         </Button>
                                         <Button
-                                            colorScheme='red'
+                                            variant='unstyled'
                                             borderRadius='none'
-                                            _hover={{
-                                                bg: 'red',
-                                                color: 'white',
-                                            }}
+                                            bg='transparent'
                                             onClick={() =>
                                                 handleReject(
                                                     subs.creator_id,
@@ -131,7 +141,14 @@ export const Subscription = () => {
                                                 )
                                             }
                                         >
-                                            Reject
+                                            <CloseIcon
+                                                boxSize='1.5em'
+                                                color='brand.500'
+                                                _hover={{
+                                                    color: '#d11a2a',
+                                                    transition: '0.3s',
+                                                }}
+                                            />
                                         </Button>
                                     </Td>
                                 </Tr>

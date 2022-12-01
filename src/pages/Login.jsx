@@ -12,7 +12,10 @@ import {
     Image,
     InputGroup,
     InputRightElement,
+    InputLeftElement,
 } from '@chakra-ui/react';
+
+import { EmailIcon, LockIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { login } from '../service/user';
@@ -102,12 +105,20 @@ export const Login = () => {
                         </VStack>
                         <SimpleGrid w='full' rowGap={5}>
                             <FormControl>
-                                <Input
-                                    placeholder='Email'
-                                    name='email'
-                                    value={email}
-                                    onChange={handleInput}
-                                />
+                                <InputGroup>
+                                    <InputRightElement>
+                                        <EmailIcon
+                                            color='brand.500'
+                                            boxSize='1.25em'
+                                        />
+                                    </InputRightElement>
+                                    <Input
+                                        placeholder='Email'
+                                        name='email'
+                                        value={email}
+                                        onChange={handleInput}
+                                    />
+                                </InputGroup>
                             </FormControl>
                             <FormControl>
                                 <InputGroup>
@@ -118,16 +129,29 @@ export const Login = () => {
                                         value={password}
                                         onChange={handleInput}
                                     />
-                                    <InputRightElement width='4.5rem'>
+                                    <InputRightElement width='4.75 rem'>
                                         <Button
                                             h='1.75rem'
                                             size='sm'
                                             onClick={handleClick}
                                             borderRadius='none'
-                                            bgColor='brand.400'
+                                            bgColor='transparent'
                                             color='white'
+                                            _hover={{
+                                                bgColor: 'transparent',
+                                            }}
                                         >
-                                            {show ? 'Hide' : 'Show'}
+                                            {show ? (
+                                                <ViewOffIcon
+                                                    boxSize='1.25em'
+                                                    color='brand.500'
+                                                />
+                                            ) : (
+                                                <ViewIcon
+                                                    boxSize='1.25em'
+                                                    color='brand.500'
+                                                />
+                                            )}
                                         </Button>
                                     </InputRightElement>
                                 </InputGroup>

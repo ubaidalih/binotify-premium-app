@@ -138,7 +138,9 @@ export const Navbar = () => {
                         </HStack>
                     </HStack>
                     <Flex alignItems={'center'}>
-                        <Text paddingRight='20px'> {name} </Text>
+                        <Text paddingRight='20px' color='brand.500'>
+                            {name}
+                        </Text>
                         <Menu>
                             <MenuButton
                                 as={Button}

@@ -4,7 +4,9 @@ import './App.css';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
+// import Songs from './pages/Songs';
 import Index from './pages/Index';
+import { Navbar } from './Navbar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import theme from './themes/';
 import './themes/styles.css';
@@ -20,20 +22,8 @@ function App() {
 
     return (
         <ChakraProvider theme={theme}>
+            <Navbar />
             {/* <div
-                className='App'
-                style={{
-                    backgroundImage: `url(${image})`,
-                    backgroundRepeat: 'no-repeat',
-                }}
-            >
-                {currentForm === 'login' ? (
-                    <Login onFormSwitch={toggleForm} />
-                ) : (
-                    <Register onFormSwitch={toggleForm} />
-                )}
-            </div> */}
-            <div
                 className='App'
                 style={{
                     backgroundImage: `url(${image})`,
@@ -43,18 +33,12 @@ function App() {
             >
                 <BrowserRouter>
                     <Routes>
-                        <Route path='/' element={<Login />}>
-                            {/* {currentForm === 'login' ? (
-                                <Login onFormSwitch={toggleForm} />
-                            ) : (
-                                <Register onFormSwitch={toggleForm} />
-                            )} */}
-                        </Route>
+                        <Route path='/' element={<Songs />}></Route>
                         <Route path='/Register' element={<Register />} />
                         <Route path='/Index' element={<Index />} />
                     </Routes>
                 </BrowserRouter>
-            </div>
+            </div> */}
         </ChakraProvider>
     );
 }

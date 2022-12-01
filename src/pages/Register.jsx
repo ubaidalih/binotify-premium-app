@@ -153,6 +153,7 @@ export const Register = (props) => {
                                     name='password'
                                     value={password}
                                     onChange={handleInput}
+                                    type={show ? 'text' : 'password'}
                                 />
                             </FormControl>
                             <FormControl>
@@ -161,6 +162,7 @@ export const Register = (props) => {
                                     name='password2'
                                     value={password2}
                                     onChange={handleInput}
+                                    type={show ? 'text' : 'password'}
                                 />
                             </FormControl>
                             <Button size='lg' w='full' onClick={handleSubmit}>

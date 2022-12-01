@@ -14,16 +14,18 @@ import {
 } from '@chakra-ui/react';
 
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import {create} from '../service/song';
+import {update} from '../service/song';
 import jwt_decode from 'jwt-decode';
 import Cookies from 'universal-cookie';
+import {useLocation} from 'react-router-dom';
 
-export const AddSong = () => {
+export const EditSong = () => {
     const [judul, setJudul] = useState('');
     const [audio, setAudio] = useState('');
     const titleRef = useRef(null);
     const fileRef = useRef(null);
     const navigate = useNavigate();
+    const location = useLocation();
     const linkToPenyanyi = useCallback(
         () => navigate('/SongList', { replace: true }),
         [navigate]
@@ -41,7 +43,7 @@ export const AddSong = () => {
         }
     }
     const handleSubmit = async (event) => {
-        if(judul === '' || fileRef.current.files[0].size === 0) {
+        if(judul === '' && fileRef.current.files[0].size === 0) {
             alert('Data is missing');
             return;
         }
@@ -59,12 +61,13 @@ export const AddSong = () => {
         var formData = new FormData();
         formData.append("audio", fileRef.current.files[0]);
         formData.append("judul", judul);
-        const response = await create(formData, config);
+        formData.append("song_id", location.state.id);
+        const response = await update(formData, config);
         if(response) {
-            alert('Succeed to add song');
+            alert('Succeed to edit song');
             linkToPenyanyi()
         } else {
-            alert("Failed to add song.")
+            alert("Failed to edit song.")
         }
     }
 
@@ -88,7 +91,7 @@ export const AddSong = () => {
                         <Image src='src\assets\Binotifylogo.png' />
                         <VStack spacing={3} alignItems='flex-start'>
                             <Heading size='2xl' color='white'>
-                                Add Song
+                                EDIT Song
                             </Heading>
                         </VStack>
                         <SimpleGrid w='full' rowGap={5}>
@@ -101,7 +104,7 @@ export const AddSong = () => {
 
                             <Button size='lg' w='full' onClick={handleSubmit}>
                                 {/* <Link to={`Index/`}></Link> */}
-                                ADD SONG
+                                EDIT SONG
                             </Button>
                         </SimpleGrid>
                     </VStack>
@@ -111,4 +114,4 @@ export const AddSong = () => {
     );
 };
 
-export default AddSong;
+export default EditSong;

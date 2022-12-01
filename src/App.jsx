@@ -7,6 +7,7 @@ import { Register } from './pages/Register';
 // import Songs from './pages/Songs';
 import { SongList } from './pages/SongList';
 import { AddSong } from './pages/AddSong';
+import { EditSong } from './pages/EditSong';
 import Index from './pages/Index';
 import { Navbar } from './Navbar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -40,6 +41,7 @@ function App() {
                         <Route path='/Index' element={<Index />} />
                         <Route path='/SongList' element={<><Navbar /><SongList /></>} />
                         <Route path='/AddSong' element={<><Navbar /><AddSong /></>} />
+                        <Route path='/EditSong' element={<><Navbar /><EditSong /></>} />
                         <Route path='/Subscription' element={<><Navbar /><Subscription /></>} />
 
                     </Routes>

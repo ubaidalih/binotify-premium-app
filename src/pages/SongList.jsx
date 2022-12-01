@@ -32,8 +32,8 @@ export const SongList = () => {
         getSongs();
     }, []);
     const navigate = useNavigate();
-    const linkToPenyanyi = useCallback(
-        () => navigate('/SongList', { replace: true }),
+    const linkToEdit = useCallback(
+        (song_id) => navigate('/EditSong', { replace: true , state:{id:song_id}}),
         [navigate]
     );
 
@@ -66,6 +66,7 @@ export const SongList = () => {
     };
 
     const handleEdit = async (id) => {
+        linkToEdit(id);
     };
 
     return (

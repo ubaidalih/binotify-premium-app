@@ -13,6 +13,7 @@ import theme from './themes/';
 import './themes/styles.css';
 import image from './assets/turnpike-blur.jpg';
 import { LayoutGroup } from 'framer-motion';
+import {Subscription} from './pages/Subscription';
 
 function App() {
     const [currentForm, setCurrentForm] = useState('login');
@@ -37,6 +38,8 @@ function App() {
                         <Route path='/Register' element={<Register />} />
                         <Route path='/Index' element={<Index />} />
                         <Route path='/SongList' element={<><Navbar /><SongList /></>} />
+                        <Route path='/Subscription' element={<><Navbar /><Subscription /></>} />
+
                     </Routes>
                 </BrowserRouter>
             </div>

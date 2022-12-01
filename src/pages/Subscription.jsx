@@ -26,7 +26,7 @@ import { read, remove } from '../service/song';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import Cookies from 'universal-cookie';
-import { approval, reject } from '../service/subscription';
+import { approval, reject , getSubs } from '../service/subscription';
 
 export const Subscription = () => {
     const [subs, setSubs] = useState([]);
@@ -35,15 +35,16 @@ export const Subscription = () => {
     }, []);
 
     const getSubscriber = async () => {
-        const cookies = new Cookiess();
+        const cookies = new Cookies();
         const token = cookies.get('token');
-        const decoded = jwt_decode('token');
+        const decoded = jwt_decode(token);
         const config = {
             headers: {
                 authorization: token,
             },
         };
         const response = await getSubs(config);
+        setSubs(response.data)
     };
 
     const handleReject = async (creator_id, subscriber_id) => {
@@ -55,8 +56,8 @@ export const Subscription = () => {
             },
         };
         const data = {
-            creator_id: decoded.user_id,
-            subscriber_id: -1,
+            creator_id,
+            subscriber_id
         };
         const response = await reject(data, config);
     };
@@ -69,7 +70,10 @@ export const Subscription = () => {
                 authorization: token,
             },
         };
-        const data = { creator_id: decoded.user_id, subscriber_id: -1 };
+        const data = {  
+            creator_id,
+            subscriber_id 
+        };
 
         const response = await approval(data, config);
     };
@@ -80,28 +84,29 @@ export const Subscription = () => {
             <Table variant='simple'>
                 <Thead>
                     <Tr>
-                        <Th>Name</Th>
+                        <Th>Artist</Th>
+                        <Th>User</Th>
                         <Th>Status</Th>
                     </Tr>
                 </Thead>
                 <Tbody>
                     {subs.map((subs, index) => (
-                        <Tr key={subs.song_id}>
+                        <Tr key={subs.creator_id}>
                             <Td>{index + 1}</Td>
-                            <Td>{subs.judul}</Td>
-                            <Td>{subs.audio_path}</Td>
+                            <Td>{subs.subscriber_id}</Td>
+                            <Td>{subs.status}</Td>
                             <Td>
                                 <Button
                                     colorScheme='blue'
-                                    onClick={() => handleAprroval(subs.song_id)}
+                                    onClick={() => handleAprroval(subs.creator_id, subs.subscriber_id)}
                                 >
-                                    Edit
+                                    Approve
                                 </Button>
                                 <Button
                                     colorScheme='red'
-                                    onClick={() => handleReject(subs.song_id)}
+                                    onClick={() => handleReject(subs.creator_id, subs.subscriber_id)}
                                 >
-                                    Delete
+                                    Reject
                                 </Button>
                             </Td>
                         </Tr>

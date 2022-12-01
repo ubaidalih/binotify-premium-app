@@ -26,7 +26,7 @@ export const Login = () => {
     const handleClick = () => setShow(!show);
     const navigate = useNavigate();
     const linkToIndex = useCallback(
-        () => navigate('/Index', { replace: true }),
+        () => navigate('/Subscription', { replace: true }),
         [navigate]
     );
     const linkToPenyanyi = useCallback(

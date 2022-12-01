@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useCallback } from 'react';
+import { useEffect } from 'react';
 import {
     Box,
     Flex,
@@ -15,10 +17,14 @@ import {
     useColorModeValue,
     Stack,
     Image,
+    Text,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
+import { Navigate, useNavigate } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
+import Cookies from 'universal-cookie';
 
-const Links = ['Songs', 'Add Songs'];
+const Links = ['Add Song'];
 const LinksAdmin = ['Subscription'];
 
 const NavLink = ({ children }) => (
@@ -42,8 +48,36 @@ const NavLink = ({ children }) => (
 export const Navbar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [isLogin, setIsLogin] = useState(true);
-    const isAdmin = true;
-    console.log(isAdmin);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [name, setName] = useState(false);
+
+    useEffect(() => {
+        getIsAdmin();
+        getName();
+    }, []);
+    const getIsAdmin = async () => {
+        const cookies = new Cookies();
+        const token = cookies.get('token');
+        setIsAdmin(jwt_decode(token).isAdmin);
+    };
+    const getName = async () => {
+        const cookies = new Cookies();
+        const token = cookies.get('token');
+        setName(jwt_decode(token).name);
+    };
+    
+    const navigate = useNavigate();
+    const linkToLogin = useCallback(
+        () => navigate('/', { replace: true }),
+        [navigate]
+    );
+
+    const handleLogout = async (event) => {
+        event.preventDefault();
+        const cookies = new Cookies();
+        cookies.remove('token');
+        linkToLogin();
+    };
 
     return (
         <>
@@ -79,7 +113,7 @@ export const Navbar = () => {
                         </HStack>
                     </HStack>
                     <Flex alignItems={'center'}>
-                        <Button
+                        {/* <Button
                             variant={'solid'}
                             colorScheme={'teal'}
                             size={'sm'}
@@ -87,7 +121,8 @@ export const Navbar = () => {
                             leftIcon={<AddIcon />}
                         >
                             Action
-                        </Button>
+                        </Button> */}
+                        <Text paddingRight="20px"> {name} </Text>
                         <Menu>
                             <MenuButton
                                 as={Button}
@@ -106,7 +141,7 @@ export const Navbar = () => {
                                 bg='brand.50'
                                 borderColor='brand.50'
                             >
-                                <MenuItem color='brand.500' bg='brand.50'>
+                                <MenuItem color='brand.500' bg='brand.50' onClick={handleLogout}>
                                     Log out
                                 </MenuItem>
                             </MenuList>
@@ -125,7 +160,7 @@ export const Navbar = () => {
                 ) : null}
             </Box>
 
-            <Box p={4}>Main Content Here</Box>
+            <Box p={4}></Box>
         </>
     );
 };

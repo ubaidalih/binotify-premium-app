@@ -23,8 +23,7 @@ function App() {
 
     return (
         <ChakraProvider theme={theme}>
-            <Navbar />
-            {/* <div
+            <div
                 className='App'
                 style={{
                     backgroundImage: `url(${image})`,
@@ -34,13 +33,13 @@ function App() {
             >
                 <BrowserRouter>
                     <Routes>
-                        <Route path='/' element={<Songs />}></Route>
+                        <Route path='/' element={<Login />}></Route>
                         <Route path='/Register' element={<Register />} />
                         <Route path='/Index' element={<Index />} />
-                        <Route path='/SongList' element={<SongList />} />
+                        <Route path='/SongList' element={<><Navbar /><SongList /></>} />
                     </Routes>
                 </BrowserRouter>
-            </div> */}
+            </div>
         </ChakraProvider>
     );
 }

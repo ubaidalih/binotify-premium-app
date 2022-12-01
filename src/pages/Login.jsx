@@ -29,6 +29,10 @@ export const Login = () => {
         () => navigate('/Index', { replace: true }),
         [navigate]
     );
+    const linkToPenyanyi = useCallback(
+        () => navigate('/SongList', { replace: true }),
+        [navigate]
+    );
     const handleInput = async (event) => {
         switch(event.target.name) {
             case 'email':
@@ -64,7 +68,7 @@ export const Login = () => {
             }
             else{
                 // link to page list lagu
-                linkToIndex()
+                linkToPenyanyi()
             }
         } else {
             alert(response.data.message)

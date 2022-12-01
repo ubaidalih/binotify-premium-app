@@ -4,6 +4,7 @@ import './App.css';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
+import { SongList } from './pages/SongList';
 import Index from './pages/Index';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import theme from './themes/';
@@ -52,6 +53,7 @@ function App() {
                         </Route>
                         <Route path='/Register' element={<Register />} />
                         <Route path='/Index' element={<Index />} />
+                        <Route path='/SongList' element={<SongList />} />
                     </Routes>
                 </BrowserRouter>
             </div>

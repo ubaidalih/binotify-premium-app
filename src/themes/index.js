@@ -68,9 +68,7 @@ const theme = extendTheme(
         },
         components: {
             Input: { ...inputDefaultStyles },
-            Select: { ...inputDefaultStyles },
             Button: { ...buttonDefaultStyles },
-            Text: { ...textDefaultStyles },
         },
     },
     withDefaultColorScheme({
@@ -79,7 +77,7 @@ const theme = extendTheme(
     }),
     withDefaultVariant({
         variant: 'filled',
-        components: ['Input'],
+        components: ['Input', 'Table'],
     })
 );
 

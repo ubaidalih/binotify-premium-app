@@ -76,12 +76,12 @@ export const SongList = () => {
     const currentPageData = (
         <TableContainer>
             <Table variant='simple'>
-                <Thead>
+                <Thead bg='brand.100'>
                     <Tr>
-                        <Th>No.</Th>
-                        <Th>Title</Th>
-                        <Th>Audio Path</Th>
-                        <Th>Action</Th>
+                        <Th color='brand.500'>No.</Th>
+                        <Th color='brand.500'>Title</Th>
+                        <Th color='brand.500'>Audio Path</Th>
+                        <Th color='brand.500'>Action</Th>
                     </Tr>
                 </Thead>
                 <Tbody>
@@ -126,61 +126,27 @@ export const SongList = () => {
 
     return (
         <div>
-            {currentPageData}
-            <ReactPaginate
-                previousLabel={'Previous'}
-                nextLabel={'Next'}
-                breakLabel={'...'}
-                pageCount={pageCount}
-                onPageChange={handlePageClick}
-                containerClassName={'pagination justify-content-center'}
-                pageClassName={'page-item'}
-                pageLinkClassName={'page-link'}
-                previousClassName={'page-item'}
-                previousLinkClassName={'page-link'}
-                nextClassName={'page-item'}
-                nextLinkClassName={'page-link'}
-                breakClassName={'page-item'}
-                breakLinkClassName={'page-link'}
-                activeClassName={'active'}
-            />
+            <Container maxWidth='100%' height='100vh'>
+                {currentPageData}
+                <ReactPaginate
+                    previousLabel={'PREVIOUS'}
+                    nextLabel={'NEXT'}
+                    breakLabel={'...'}
+                    pageCount={pageCount}
+                    onPageChange={handlePageClick}
+                    containerClassName={'pagination justify-content-center'}
+                    pageClassName={'page-item'}
+                    pageLinkClassName={'page-link'}
+                    previousClassName={'page-item'}
+                    previousLinkClassName={'page-link'}
+                    nextClassName={'page-item'}
+                    nextLinkClassName={'page-link'}
+                    breakClassName={'page-item'}
+                    breakLinkClassName={'page-link'}
+                    activeClassName={'active'}
+                />
+            </Container>
         </div>
-        // tambah header, judul, dan tombol tambah lagu
-        // <TableContainer>
-        //     <Table variant='simple'>
-        //         <Thead>
-        //             <Tr>
-        //                 <Th>No.</Th>
-        //                 <Th>Title</Th>
-        //                 <Th>Audio Path</Th>
-        //                 <Th>Action</Th>
-        //             </Tr>
-        //         </Thead>
-        //         <Tbody>
-        //             {songs.map((song, index) => (
-        //                 <Tr key={song.song_id}>
-        //                     <Td>{index + 1}</Td>
-        //                     <Td>{song.judul}</Td>
-        //                     <Td>{song.audio_path}</Td>
-        //                     <Td>
-        //                         <Button
-        //                             colorScheme='blue'
-        //                             onClick={() => handleEdit(song.song_id)}
-        //                         >
-        //                             Edit
-        //                         </Button>
-        //                         <Button
-        //                             colorScheme='red'
-        //                             onClick={() => handleDelete(song.song_id)}
-        //                         >
-        //                             Delete
-        //                         </Button>
-        //                     </Td>
-        //                 </Tr>
-        //             ))}
-        //         </Tbody>
-        //     </Table>
-        // </TableContainer>
     );
 };
 

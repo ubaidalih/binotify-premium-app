@@ -1,0 +1,42 @@
+.pagination {
+    padding-top: 7.5px;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    cursor: pointer;
+    font-family: 'Montserrat';
+    font-weight: lighter;
+    background: black;
+    height: 40px;
+}
+
+.pagination a {
+    margin: 0px;
+    padding: 10px;
+    border-radius: none;
+    border: none;
+    color: #b0b8bf;
+    font-size: small;
+}
+a:hover {
+    color: white;
+    font-weight: lighter;
+}
+
+.pagination__link {
+    font-weight: lighter;
+}
+
+.pagination__link--active a {
+    font-weight: lighter;
+
+    color: #b0b8bf;
+    background-color: #333333;
+}
+
+.pagination__link--disabled a {
+    font-weight: lighter;
+
+    color: #404040;
+    border: 1px solid rgb(198, 197, 202);
+}

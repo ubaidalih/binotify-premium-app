@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
+import '../themes/pagination.css';
 import {
     Container,
     FormControl,
@@ -82,11 +83,11 @@ export const Subscription = () => {
     const currentPageData = (
         <TableContainer>
             <Table variant='simple'>
-                <Thead>
+                <Thead bg='brand.100'>
                     <Tr>
-                        <Th>Artist</Th>
-                        <Th>User</Th>
-                        <Th>Status</Th>
+                        <Th color='brand.500'>Artist</Th>
+                        <Th color='brand.500'>User</Th>
+                        <Th color='brand.500'>Status</Th>
                     </Tr>
                 </Thead>
                 <Tbody>
@@ -101,7 +102,6 @@ export const Subscription = () => {
                                     <Td>
                                         {' '}
                                         <Button
-                                            colorScheme='blue'
                                             onClick={() =>
                                                 handleAprroval(
                                                     subs.creator_id,
@@ -112,7 +112,6 @@ export const Subscription = () => {
                                             Approve
                                         </Button>
                                         <Button
-                                            colorScheme='red'
                                             onClick={() =>
                                                 handleReject(
                                                     subs.creator_id,
@@ -139,24 +138,27 @@ export const Subscription = () => {
     return (
         // tambah header, judul, dan tombol tambah lagu
         <div>
-            {currentPageData}
-            <ReactPaginate
-                previousLabel={'Previous'}
-                nextLabel={'Next'}
-                breakLabel={'...'}
-                pageCount={pageCount}
-                onPageChange={handlePageClick}
-                containerClassName={'pagination justify-content-center'}
-                pageClassName={'page-item'}
-                pageLinkClassName={'page-link'}
-                previousClassName={'page-item'}
-                previousLinkClassName={'page-link'}
-                nextClassName={'page-item'}
-                nextLinkClassName={'page-link'}
-                breakClassName={'page-item'}
-                breakLinkClassName={'page-link'}
-                activeClassName={'active'}
-            />
+            <Container maxWidth='100%' height='100vh'>
+                {currentPageData}
+                <ReactPaginate
+                    bgColor='brand.500'
+                    previousLabel={'PREVIOUS'}
+                    nextLabel={'NEXT'}
+                    breakLabel={'...'}
+                    pageCount={pageCount}
+                    onPageChange={handlePageClick}
+                    containerClassName={'pagination justify-content-center'}
+                    pageClassName={'page-item'}
+                    pageLinkClassName={'page-link'}
+                    previousClassName={'page-item'}
+                    previousLinkClassName={'page-link'}
+                    nextClassName={'page-item'}
+                    nextLinkClassName={'page-link'}
+                    breakClassName={'page-item'}
+                    breakLinkClassName={'page-link'}
+                    activeClassName={'active'}
+                />
+            </Container>
         </div>
     );
 };

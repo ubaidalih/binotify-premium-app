@@ -39,7 +39,7 @@ const NavLink = ({ children }) => (
             bg: useColorModeValue('black', 'gray.700'),
             color: 'brand.200',
         }}
-        href={"http://127.0.0.1:5173/" + children}
+        href={'http://127.0.0.1:5173/' + children}
     >
         {children}
     </Link>
@@ -65,7 +65,7 @@ export const Navbar = () => {
         const token = cookies.get('token');
         setName(jwt_decode(token).name);
     };
-    
+
     const navigate = useNavigate();
     const linkToLogin = useCallback(
         () => navigate('/', { replace: true }),
@@ -88,11 +88,35 @@ export const Navbar = () => {
                     justifyContent={'space-between'}
                 >
                     <IconButton
+                        variant='ghost'
+                        borderColor='black'
                         size={'md'}
-                        icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+                        bg='brand.black'
+                        icon={
+                            isOpen ? (
+                                <CloseIcon
+                                    color='brand.500'
+                                    _hover={{
+                                        color: 'white',
+                                        transition: '0.3s',
+                                    }}
+                                />
+                            ) : (
+                                <HamburgerIcon
+                                    color='brand.500'
+                                    _hover={{
+                                        color: 'white',
+                                        transition: '0.3s',
+                                    }}
+                                />
+                            )
+                        }
                         aria-label={'Open Menu'}
                         display={{ md: 'none' }}
                         onClick={isOpen ? onClose : onOpen}
+                        _hover={{
+                            bg: 'black',
+                        }}
                     />
                     <HStack spacing={8} alignItems={'center'}>
                         <Box maxWidth='150px'>
@@ -113,16 +137,7 @@ export const Navbar = () => {
                         </HStack>
                     </HStack>
                     <Flex alignItems={'center'}>
-                        {/* <Button
-                            variant={'solid'}
-                            colorScheme={'teal'}
-                            size={'sm'}
-                            mr={4}
-                            leftIcon={<AddIcon />}
-                        >
-                            Action
-                        </Button> */}
-                        <Text paddingRight="20px"> {name} </Text>
+                        <Text paddingRight='20px'> {name} </Text>
                         <Menu>
                             <MenuButton
                                 as={Button}
@@ -137,11 +152,20 @@ export const Navbar = () => {
                                 />
                             </MenuButton>
                             <MenuList
+                                marginTop='5px'
                                 borderRadius='none'
                                 bg='brand.50'
                                 borderColor='brand.50'
                             >
-                                <MenuItem color='brand.500' bg='brand.50' onClick={handleLogout}>
+                                <MenuItem
+                                    color='brand.500'
+                                    bg='brand.50'
+                                    onClick={handleLogout}
+                                    _hover={{
+                                        color: 'white',
+                                        transition: '0.3s',
+                                    }}
+                                >
                                     Log out
                                 </MenuItem>
                             </MenuList>

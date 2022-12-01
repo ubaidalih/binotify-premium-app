@@ -41,7 +41,8 @@ const NavLink = ({ children }) => (
         }}
         href={'http://127.0.0.1:5173/' + children}
     >
-        {children}
+        //cek lagi bener ga isi navbarnya buat admin & penyanyi??
+        {children === 'AddSong' ? 'Add Song' : 'Subscription'}
     </Link>
 );
 

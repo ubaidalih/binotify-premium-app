@@ -122,9 +122,8 @@ export const Register = (props) => {
                         paddingBottom={28}
                         bg='#121212'
                     >
-                        <Image src='src\assets\Binotifylogo.png' />
                         <VStack spacing={3} alignItems='flex-start'>
-                            <Heading size='2xl' color='white'>
+                            <Heading size={['xl', '2xl']} color='white'>
                                 Sign up for a Binotify account.
                             </Heading>
                         </VStack>

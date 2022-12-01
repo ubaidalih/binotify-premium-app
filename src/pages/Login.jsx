@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 
 import { Link, Navigate, useNavigate } from 'react-router-dom';
-import {login} from '../service/user';
+import { login } from '../service/user';
 import jwt_decode from 'jwt-decode';
 import Cookies from 'universal-cookie';
 
@@ -34,7 +34,7 @@ export const Login = () => {
         [navigate]
     );
     const handleInput = async (event) => {
-        switch(event.target.name) {
+        switch (event.target.name) {
             case 'email':
                 setEmail(event.target.value);
                 break;
@@ -44,9 +44,9 @@ export const Login = () => {
             default:
                 break;
         }
-    }
+    };
     const handleSubmit = async (event) => {
-        if(email === '' || password === '') {
+        if (email === '' || password === '') {
             alert('Data is missing');
             return;
         }
@@ -54,26 +54,25 @@ export const Login = () => {
         const data = {
             email: email,
             password: password,
-        }
+        };
         const response = await login(data);
-        if(response.data.message === "Login success") {
-            alert('Login success')
+        if (response.data.message === 'Login success') {
+            alert('Login success');
             const cookies = new Cookies();
             cookies.set('token', response.data.token, { path: '/' });
             console.log(cookies.get('token'));
-            const decoded = jwt_decode(response.data.token)
-            if(decoded.isAdmin){
+            const decoded = jwt_decode(response.data.token);
+            if (decoded.isAdmin) {
                 // link to page subscription
-                linkToSubscription()
-            }
-            else{
+                linkToSubscription();
+            } else {
                 // link to page list lagu
-                linkToPenyanyi()
+                linkToPenyanyi();
             }
         } else {
-            alert(response.data.message)
+            alert(response.data.message);
         }
-    }
+    };
 
     return (
         <Container maxWidth='100%' height='100vh' overflow='scroll'>
@@ -92,22 +91,32 @@ export const Login = () => {
                         paddingTop={28}
                         bg='#121212'
                     >
-                        <Image src='src\assets\Binotifylogo.png' />
+                        <Image
+                            src='src\assets\Binotifylogo.png'
+                            size={['75%', '100%']}
+                        />
                         <VStack spacing={3} alignItems='flex-start'>
-                            <Heading size='2xl' color='white'>
+                            <Heading size={['xl', '2xl']} color='white'>
                                 Music for Everyone
                             </Heading>
                         </VStack>
                         <SimpleGrid w='full' rowGap={5}>
                             <FormControl>
-                                <Input placeholder='Email' name='email' value={email} onChange={handleInput} />
+                                <Input
+                                    placeholder='Email'
+                                    name='email'
+                                    value={email}
+                                    onChange={handleInput}
+                                />
                             </FormControl>
                             <FormControl>
                                 <InputGroup>
                                     <Input
                                         type={show ? 'text' : 'password'}
                                         placeholder='Password'
-                                        name='password' value={password} onChange={handleInput}
+                                        name='password'
+                                        value={password}
+                                        onChange={handleInput}
                                     />
                                     <InputRightElement width='4.5rem'>
                                         <Button

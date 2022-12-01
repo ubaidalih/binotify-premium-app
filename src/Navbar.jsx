@@ -41,7 +41,7 @@ const NavLink = ({ children }) => (
         }}
         href={'http://127.0.0.1:5173/' + children}
     >
-        //cek lagi bener ga isi navbarnya buat admin & penyanyi??
+        {/*cek lagi bener ga isi navbarnya buat admin & penyanyi?? */}
         {children === 'AddSong' ? 'Add Song' : 'Subscription'}
     </Link>
 );
@@ -156,9 +156,10 @@ export const Navbar = () => {
                             </MenuButton>
                             <MenuList
                                 marginTop='5px'
-                                borderRadius='none'
+                                borderRadius='3px'
                                 bg='brand.50'
-                                borderColor='brand.50'
+                                borderColor='rgba(64,64,64,.3)'
+                                boxShadow=' 0px 0px 25px 3px black'
                             >
                                 <MenuItem
                                     color='brand.500'

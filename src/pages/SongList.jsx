@@ -32,8 +32,9 @@ export const SongList = () => {
         getSongs();
     }, []);
     const navigate = useNavigate();
-    const linkToPenyanyi = useCallback(
-        () => navigate('/SongList', { replace: true }),
+    const linkToEdit = useCallback(
+        (song_id) =>
+            navigate('/EditSong', { replace: true, state: { id: song_id } }),
         [navigate]
     );
 
@@ -65,7 +66,9 @@ export const SongList = () => {
         window.location.reload(false);
     };
 
-    const handleEdit = async (id) => {};
+    const handleEdit = async (id) => {
+        linkToEdit(id);
+    };
 
     return (
         // tambah header, judul, dan tombol tambah lagu

@@ -25,7 +25,7 @@ export const Login = () => {
     const [password, setPassword] = useState('');
     const handleClick = () => setShow(!show);
     const navigate = useNavigate();
-    const linkToIndex = useCallback(
+    const linkToSubscription = useCallback(
         () => navigate('/Subscription', { replace: true }),
         [navigate]
     );
@@ -64,7 +64,7 @@ export const Login = () => {
             const decoded = jwt_decode(response.data.token)
             if(decoded.isAdmin){
                 // link to page subscription
-                linkToIndex()
+                linkToSubscription()
             }
             else{
                 // link to page list lagu

@@ -25,8 +25,12 @@ export const Register = (props) => {
     const [show, setShow] = useState(false);
 
     const navigate = useNavigate();
-    const linkToIndex = useCallback(
-        () => navigate('/Index', { replace: true }),
+    const linkToSubscription = useCallback(
+        () => navigate('/Subscription', { replace: true }),
+        [navigate]
+    );
+    const linkToPenyanyi = useCallback(
+        () => navigate('/SongList', { replace: true }),
         [navigate]
     );
 
@@ -92,10 +96,10 @@ export const Register = (props) => {
             const decoded = jwt_decode(response.data.token);
             if (decoded.isAdmin) {
                 // link to page subscription
-                linkToIndex();
+                linkToSubscription();
             } else {
                 // link to page list lagu
-                linkToIndex();
+                linkToPenyanyi();
             }
         } else {
             alert(response.data.message);

@@ -24,7 +24,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import Cookies from 'universal-cookie';
 
-const Links = ['Add Song'];
+const Links = ['AddSong'];
 const LinksAdmin = ['Subscription'];
 
 const NavLink = ({ children }) => (
@@ -39,7 +39,7 @@ const NavLink = ({ children }) => (
             bg: useColorModeValue('black', 'gray.700'),
             color: 'brand.200',
         }}
-        href={'#'}
+        href={"http://127.0.0.1:5173/" + children}
     >
         {children}
     </Link>

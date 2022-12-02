@@ -104,7 +104,7 @@ export const Subscription = () => {
                         .map((subs, index) => {
                             return (
                                 <Tr key={subs.creator_id} bg='black'>
-                                    <Td>{subs.index + 1}</Td>
+                                    <Td>{index + 1}</Td>
                                     <Td>{subs.creator_id}</Td>
                                     <Td>{subs.subscriber_id}</Td>
                                     <Td>{subs.status}</Td>
